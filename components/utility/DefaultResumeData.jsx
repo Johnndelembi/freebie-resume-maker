@@ -38,7 +38,7 @@ const DefaultResumeData = {
       "endYear": "2024-09-01"
     },
     {
-      "company": "MERN Auth App",
+      "company": "Django-Google OAuth App",
       "position": "Full Stack Developer",
       "description": "A full-featured authentication app using OAuth, Firebase for Gmail login, MySQL for the database, and Redux for global state management.The frontend is built with Bootstrap, providing a responsive and user-friendly interface.",
       "keyAchievements": "Implemented OAuth and Firebase login features for Gmail authentication.\nIntegrated MySQL as a database solution for storing user information.",
