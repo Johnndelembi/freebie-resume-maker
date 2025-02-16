@@ -1,8 +1,8 @@
 const DefaultResumeData = {
-  name: "JOHN NDELEMBI",
+  name: "JOHN DOE",
   position: "Full Stack Developer",
   contactInformation: "+255 625232734",
-  email: "williamjohnie61@gmail.com",
+  email: "johndoe@hotmail.com",
   address: "Dar-es-Salaam -Tanzania",
   profilePicture: "",
   socialMedia: [
@@ -46,8 +46,8 @@ const DefaultResumeData = {
       "endYear": "2023-09-09"
     },
     {
-      "company": "MTABEAPP/MTABEWEB",
-      "position": "Simple Selcom Payment Funds Disbursment",
+      "company": "Selcom Funds Disbursment",
+      "position": "Simple Selcom Funds Disbursment System.",
       "description": "A simple selcom application built with Bootstrap for the frontend, PostgreSQL for the database, and REST framework for API calls",
       "keyAchievements": "Developed secure selcom payment disbursment system.\nIntegrated Mobile Networks validation to ensure reliable data handling and funds transfer.\nImplemented a clean and responsive dashboard UI using Bootstrap",
       "startYear": "2025-02-01",
