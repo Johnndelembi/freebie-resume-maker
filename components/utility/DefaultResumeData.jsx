@@ -4,7 +4,7 @@ const DefaultResumeData = {
   contactInformation: "+255 XXXXXXXX",
   email: "johndoe@hotmail.com",
   address: "Dar-es-Salaam -Tanzania",
-  profilePicture: "",
+  profilePicture: "/assets/john_doe.jpeg",
   socialMedia: [
     {
       socialMedia: "Github",
