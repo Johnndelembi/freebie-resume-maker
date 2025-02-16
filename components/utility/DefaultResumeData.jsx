@@ -1,18 +1,18 @@
 const DefaultResumeData = {
   name: "JOHN DOE",
   position: "Full Stack Developer",
-  contactInformation: "+255 625232734",
+  contactInformation: "+255 XXXXXXXX",
   email: "johndoe@hotmail.com",
   address: "Dar-es-Salaam -Tanzania",
   profilePicture: "",
   socialMedia: [
     {
       socialMedia: "Github",
-      link: "github.com//Johnndelembi",
+      link: "github.com//Johndoe",
     },
     {
       socialMedia: "LinkedIn",
-      link: "linkedin.com/in/Johnndelembi",
+      link: "linkedin.com/in/Johndoe",
     },
     {
       socialMedia: "Website",
