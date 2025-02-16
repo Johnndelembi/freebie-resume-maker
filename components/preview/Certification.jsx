@@ -14,3 +14,4 @@ const Certification = ({ title, certifications }) => {
   };
 
 export default Certification;
+

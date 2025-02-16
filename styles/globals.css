@@ -134,7 +134,7 @@
     }
 
     .preview::after {
-        content: "Made using : free-next-resume-maker.vercel.app ";
+        content: "Made using : free-resume-maker-lake.vercel.app ";
         position: fixed;
         bottom: 0;
         right: 0;
@@ -143,4 +143,92 @@
         text-align: center;
         z-index: -1;
     }
+}
+
+/* Modern Design */
+.modern-design {
+  @apply space-y-4;
+}
+
+.modern-design .name {
+  @apply text-4xl font-bold text-center;
+}
+
+/* Minimal Design */
+.minimal-design {
+  @apply space-y-2;
+}
+
+.minimal-design .name {
+  @apply text-3xl font-semibold;
+}
+
+/* Elegant Design */
+.elegant-design {
+  @apply max-w-5xl mx-auto p-8 font-serif;
+}
+
+.elegant-design .name {
+  @apply text-4xl font-bold text-gray-900 mb-1;
+}
+
+.elegant-design .profession {
+  @apply text-xl text-gray-600;
+}
+
+.elegant-design .section-title {
+  @apply text-xl font-bold text-gray-900 border-b border-gray-300 pb-2;
+}
+
+.elegant-design .content {
+  @apply text-gray-700;
+}
+
+.elegant-design .i-bold {
+  @apply text-gray-900 font-semibold;
+}
+
+.elegant-design .experience-item,
+.elegant-design .project-item,
+.elegant-design .skill-item,
+.elegant-design .education-item,
+.elegant-design .certification-item {
+  @apply transition-all duration-200 p-2 rounded-sm hover:bg-gray-50;
+}
+
+.elegant-design a {
+  @apply transition-colors duration-200;
+}
+
+.elegant-design .social-links a {
+  @apply text-gray-600 hover:text-gray-900;
+}
+
+/* Add more design variations */
+
+/* Modern Design Skills */
+.modern-design .skill-item ul {
+  @apply mt-2;
+}
+
+.modern-design .skill-item li {
+  @apply mb-1;
+}
+
+/* Minimal Design Skills */
+.minimal-design .skill-item ul {
+  @apply mt-1;
+}
+
+.minimal-design .skill-item li {
+  @apply mb-0.5;
+}
+
+/* Elegant Design Skills */
+.elegant-design .skill-item ul {
+  @apply mt-2;
+}
+
+.elegant-design .skill-item li {
+  @apply text-gray-700;
 }
