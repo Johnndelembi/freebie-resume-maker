@@ -10,7 +10,7 @@ export default function Hero() {
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
                         <Link href="/" className="text-2xl font-bold text-gray-800">
-                            Free Resume Maker
+{/*                             Free Resume Maker */}
                         </Link>
                         <div className="flex items-center gap-6">
                             <Link 
