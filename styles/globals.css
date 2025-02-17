@@ -116,8 +116,23 @@
 }
 
 @media print {
+    /* Only allow printing through our button */
+    body * {
+        visibility: hidden;
+    }
+    
+    .preview, .preview * {
+        visibility: visible;
+    }
+    
+    .preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
     .exclude-print {
-        display: none;
+        display: none !important;
     }
 
     .rm-padding-print {

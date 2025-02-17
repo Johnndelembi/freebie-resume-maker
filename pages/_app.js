@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import '../styles/globals.css'
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleKeyPress = (e) => {
       // Prevent Ctrl+P and Cmd+P
@@ -15,5 +14,7 @@ export default function App({ Component, pageProps }) {
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, []);
 
-  return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }
+
+export default MyApp; 

@@ -14,16 +14,15 @@ import Projects from "../components/form/Projects";
 import Education from "../components/form/Education";
 import dynamic from "next/dynamic";
 import Certification from "../components/form/certification";
-import Print from "../components/utility/WinPrint";
 import { DesignProvider } from '../contexts/DesignContext';
 import DesignSelector from '../components/form/DesignSelector';
 
-const ResumeContext = createContext(DefaultResumeData);
-
-// server side rendering false
-const PrintComponent = dynamic(() => import("../components/utility/WinPrint"), {
-  ssr: false,
+// Import Print component with dynamic import to avoid SSR issues
+const Print = dynamic(() => import("../components/utility/WinPrint.jsx"), {
+  ssr: false
 });
+
+const ResumeContext = createContext(DefaultResumeData);
 
 export default function Builder(props) {
   // resume data
@@ -54,7 +53,6 @@ export default function Builder(props) {
 
   return (
     <>
-    
       <ResumeContext.Provider
         value={{
           resumeData,
@@ -69,33 +67,35 @@ export default function Builder(props) {
             description="free resume maker for humanity."
             keywords="ATS-friendly, Resume optimization, Keyword-rich resume, ATS resume builder, ATS resume templates, ATS-compliant resume, ATS-optimized CV, ATS-friendly format, ATS resume tips, Resume writing services, Career guidance, Job search in India, Resume tips for India, Professional resume builder, Cover letter writing, Interview preparation, Job interview tips, Career growth, Online job applications, resume builder, free resume builder, resume ats, best free resume builder, resume creator, resume cv, resume design, resume editor, resume maker"
           />
-          <div className="f-col gap-4 md:flex-row justify-evenly max-w-full md:mx-auto md:h-screen">
-            {!formClose && (
-              <form className="p-4 bg-[rgb(42,167,69)] exclude-print w-full h-full md:overflow-y-scroll">
-                <LoadUnload/>
-                <DesignSelector />
-                <PersonalInformation />
-                <SocialMedia />
-                <Summary />
-                <Education />
-                <WorkExperience />
-                <Projects />
-                {
-                  resumeData.skills.map((skill, index) => (
-                    <Skill
-                      title={skill.title}
-                      key={index}
-                    />
-                  ))
-                }
-                <Language />
-                <Certification />
-              </form>
-            )}
-            <Preview className="w-full h-full" />
+          <div className="relative min-h-screen">
+            <div className="f-col gap-4 md:flex-row justify-evenly max-w-full md:mx-auto md:h-screen">
+              {!formClose && (
+                <form className="p-4 bg-[rgb(42,167,69)] exclude-print w-full h-full md:overflow-y-scroll">
+                  <LoadUnload/>
+                  <DesignSelector />
+                  <PersonalInformation />
+                  <SocialMedia />
+                  <Summary />
+                  <Education />
+                  <WorkExperience />
+                  <Projects />
+                  {
+                    resumeData.skills.map((skill, index) => (
+                      <Skill
+                        title={skill.title}
+                        key={index}
+                      />
+                    ))
+                  }
+                  <Language />
+                  <Certification />
+                </form>
+              )}
+              <Preview className="w-full h-full" />
+            </div>
+            <Print />
           </div>
           <FormCP formClose={formClose} setFormClose={setFormClose} />
-          <Print />
         </DesignProvider>
       </ResumeContext.Provider>
     </>
