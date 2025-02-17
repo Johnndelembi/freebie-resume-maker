@@ -10,7 +10,7 @@ export default function Hero() {
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
                         <Link href="/" className="text-2xl font-bold text-gray-800">
-{/*                             Free Resume Maker */}
+                            Free Resume Maker
                         </Link>
                         <div className="flex items-center gap-6">
                             <Link 
@@ -40,7 +40,7 @@ export default function Hero() {
                 <div className="relative z-10 container mx-auto px-6 pt-32">
                     <div className="flex flex-col justify-center items-center h-[80vh] text-center">
                         <h1 className="text-6xl font-bold text-white mb-6">
-                            Free Resume Maker <br />
+{/*                             Free Resume Maker <br /> */}
                             <span className="text-[rgb(42,167,69)]">
                                 <Typewriter
                                     words={['Optimized', 'Perfect', 'Professional', 'ATS-friendly']}
