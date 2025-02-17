@@ -12,7 +12,6 @@ const PaymentModal = ({ isOpen, onClose, onSuccess }) => {
     setError('');
 
     try {
-      // Format phone number
       const formattedPhone = phoneNumber.startsWith('0') 
         ? '255' + phoneNumber.slice(1) 
         : phoneNumber;
@@ -24,8 +23,7 @@ const PaymentModal = ({ isOpen, onClose, onSuccess }) => {
         },
         body: JSON.stringify({
           phone: formattedPhone,
-          amount: 500, // Amount in TZS
-          recipientNumber: '255625232734' // Your number to receive payment
+          amount: 500
         }),
       });
 
@@ -39,6 +37,7 @@ const PaymentModal = ({ isOpen, onClose, onSuccess }) => {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
+      console.error('Payment error:', err);
     } finally {
       setLoading(false);
     }
