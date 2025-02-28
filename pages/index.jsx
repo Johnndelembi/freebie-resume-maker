@@ -2,13 +2,11 @@ import React, {  } from "react";
 // import Builder from "./builder";
 import Hero from "../components/hero/Hero";
 
-const ResumeBuilder = () => {
+export default function Home() {
   return (
-    <>
-    <Hero />
-    </>
+    <main>
+      <Hero />
+    </main>
   );
-};
-
-export default ResumeBuilder;
+}
 
