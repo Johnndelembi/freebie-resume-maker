@@ -18,10 +18,13 @@ import { ResumeContext } from "../../pages/builder";
 import { DesignContext } from "../../contexts/DesignContext";
 import ModernDesign from "./designs/ModernDesign";
 import MinimalDesign from "./designs/MinimalDesign";
+import MinimalistDesign from "./designs/MinimalistDesign";
+import CreativeDesign from "./designs/CreativeDesign";
 import dynamic from "next/dynamic";
 import Language from "./Language";
 import Certification from "./Certification";
 import ElegantDesign from './designs/ElegantDesign';
+import CorporateDesign from "./designs/CorporateDesign";
 
 const DragDropContext = dynamic(
   () =>
@@ -125,11 +128,19 @@ const Preview = () => {
     switch (selectedDesign) {
       case 'minimal':
         return <MinimalDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
+      case 'minimalist':
+        return <MinimalistDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
+      case 'creative':
+        return <CreativeDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
       case 'elegant':
         return <ElegantDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
+      case 'corporate':
+        return <CorporateDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
       case 'modern':
       default:
         return <ModernDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
+      case 'corporate':
+        return <CorporateDesign resumeData={resumeData} DraggableComponents={draggableComponents} />;
     }
   };
 

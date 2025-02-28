@@ -8,6 +8,9 @@ const DesignSelector = () => {
     { id: 'modern', name: 'Modern' },
     { id: 'minimal', name: 'Minimal' },
     { id: 'elegant', name: 'Elegant' },
+    { id: 'minimalist', name: 'Minimalist' },
+    { id: 'creative', name: 'Creative' },
+    { id: 'corporate', name: 'Corporate' },
   ];
 
   return (
