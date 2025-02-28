@@ -40,7 +40,7 @@ export default function Hero() {
                 <div className="relative z-10 container mx-auto px-6 pt-32">
                     <div className="flex flex-col justify-center items-center h-[80vh] text-center">
                         <h1 className="text-6xl font-bold text-white mb-6">
-                            Free Resume Maker <br />
+{/*                             Free Resume Maker <br /> */}
                             <span className="text-[rgb(42,167,69)]">
                                 <Typewriter
                                     words={['Optimized', 'Perfect', 'Professional', 'ATS-friendly']}
