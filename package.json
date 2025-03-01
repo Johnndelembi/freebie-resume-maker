@@ -6,23 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "init-db": "node scripts/init-db.cjs"
   },
   "dependencies": {
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
+    "chart.js": "^4.4.1",
+    "dotenv": "^16.4.7",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "framer-motion": "^12.4.7",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
+    "mysql2": "^3.12.0",
     "next": "14.2.15",
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
-    "react-simple-typewriter": "^5.0.1"
+    "react-simple-typewriter": "^5.0.1",
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

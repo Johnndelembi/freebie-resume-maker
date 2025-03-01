@@ -1,4 +1,6 @@
-import React, { useState, createContext, useContext } from "react";
+'use client';
+
+import React, { useState, createContext, useContext, useEffect } from "react";
 import Language from "../components/form/Language";
 import Meta from "../components/meta/Meta";
 import FormCP from "../components/form/FormCP";
@@ -17,6 +19,9 @@ import Certification from "../components/form/certification";
 import Print from "../components/utility/WinPrint";
 import { DesignProvider } from '../contexts/DesignContext';
 import DesignSelector from '../components/form/DesignSelector';
+import Analytics from '../utils/analytics';
+import Dashboard from '../components/Dashboard';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ResumeContext = createContext(DefaultResumeData);
 
@@ -25,12 +30,27 @@ const PrintComponent = dynamic(() => import("../components/utility/WinPrint"), {
   ssr: false,
 });
 
+// Dynamic imports for heavy components
+const PreviewComponent = dynamic(() => import('../components/preview/Preview'), {
+  loading: () => <LoadingSpinner />,
+  ssr: false
+});
+
+const DashboardComponent = dynamic(() => import('../components/Dashboard'), {
+  ssr: false
+});
+
 export default function Builder(props) {
   // resume data
   const [resumeData, setResumeData] = useState(DefaultResumeData);
 
   // form hide/show
   const [formClose, setFormClose] = useState(false);
+
+  // Track page visit when component mounts
+  useEffect(() => {
+    Analytics.trackPageVisit();
+  }, []);
 
   // profile picture
   const handleProfilePicture = (e) => {
@@ -50,6 +70,19 @@ export default function Builder(props) {
   const handleChange = (e) => {
     setResumeData({ ...resumeData, [e.target.name]: e.target.value });
     console.log(resumeData);
+  };
+
+  // Update the print handler
+  const handlePrint = () => {
+    Analytics.incrementDownloadCount();
+    window.print();
+  };
+
+  // Track when a resume is created (when form is filled)
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    Analytics.incrementResumeCount();
+    // ... your existing form submission logic
   };
 
   return (
@@ -92,10 +125,11 @@ export default function Builder(props) {
                 <Certification />
               </form>
             )}
-            <Preview className="w-full h-full" />
+            <PreviewComponent className="w-full h-full" />
           </div>
           <FormCP formClose={formClose} setFormClose={setFormClose} />
           <Print />
+          <DashboardComponent />
         </DesignProvider>
       </ResumeContext.Provider>
     </>
