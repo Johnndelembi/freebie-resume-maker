@@ -22,6 +22,7 @@ import DesignSelector from '../components/form/DesignSelector';
 import Analytics from '../utils/analytics';
 import Dashboard from '../components/Dashboard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ChatModal from '../src/ChatModal';
 
 const ResumeContext = createContext(DefaultResumeData);
 
@@ -46,6 +47,9 @@ export default function Builder(props) {
 
   // form hide/show
   const [formClose, setFormClose] = useState(false);
+
+  // Chat visibility state
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Track page visit when component mounts
   useEffect(() => {
@@ -87,7 +91,6 @@ export default function Builder(props) {
 
   return (
     <>
-    
       <ResumeContext.Provider
         value={{
           resumeData,
@@ -105,7 +108,7 @@ export default function Builder(props) {
           <div className="f-col gap-4 md:flex-row justify-evenly max-w-full md:mx-auto md:h-screen">
             {!formClose && (
               <form className="p-4 bg-[rgb(42,167,69)] exclude-print w-full h-full md:overflow-y-scroll">
-                <LoadUnload/>
+                <LoadUnload />
                 <DesignSelector />
                 <PersonalInformation />
                 <SocialMedia />
@@ -130,6 +133,17 @@ export default function Builder(props) {
           <FormCP formClose={formClose} setFormClose={setFormClose} />
           <Print />
           <DashboardComponent />
+
+          {/* Chat Button positioned at the top-left corner */}
+          <button 
+            onClick={() => setIsChatOpen(true)} 
+            className="fixed top-4 left-4 bg-white text-green p-2 rounded-xl"
+          >
+            Builder AI
+          </button>
+
+          {/* Chat Modal */}
+          <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
         </DesignProvider>
       </ResumeContext.Provider>
     </>

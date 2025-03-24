@@ -1,34 +1,12 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../lib/db';
+const { Schema, model } = require('mongoose');
 
-const Analytics = sequelize.define('Analytics', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  date: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  },
-  visits: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
-  resumesCreated: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
-  downloadsCount: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
-  userId: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
-}, {
-  timestamps: true
+const analyticsSchema = new Schema({
+    event: { type: String, required: true },
+    userId: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now },
+    data: { type: Object, required: true }
 });
 
-export default Analytics; 
+const Analytics = model('Analytics', analyticsSchema);
+
+module.exports = Analytics; 

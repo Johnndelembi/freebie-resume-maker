@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Analytics from '../utils/analytics';
 import { FiBarChart2, FiX, FiUsers } from 'react-icons/fi';
 import TrendChart from './analytics/TrendChart';
+import axios from 'axios';
 
 const StatCard = ({ title, value, icon, color }) => (
   <div className="bg-gray-50 p-3 rounded-lg hover:shadow-md transition-shadow">
@@ -16,31 +17,27 @@ const StatCard = ({ title, value, icon, color }) => (
 );
 
 const Dashboard = () => {
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({ user: { totalVisits: 0, totalResumes: 0, totalDownloads: 0 }, global: { globalVisits: 0, uniqueUsers: 0, globalResumes: 0, globalDownloads: 0 }, trends: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('personal'); // 'personal' or 'global'
 
   useEffect(() => {
-    async function fetchStats() {
+    const fetchAnalyticsData = async () => {
       try {
-        setIsLoading(true);
-        const data = await Analytics.getAnalytics();
-        setStats(data);
-      } catch (error) {
-        console.error('Error fetching stats:', error);
+        const response = await axios.get('/api/analytics/get-stats?userId=YOUR_USER_ID'); // Replace with actual user ID
+        setStats(response.data);
+      } catch (err) {
+        console.error('Failed to fetch analytics data:', err);
       } finally {
         setIsLoading(false);
       }
-    }
-    fetchStats();
+    };
 
-    // Update stats every 30 seconds
-    const interval = setInterval(fetchStats, 30000);
-    return () => clearInterval(interval);
+    fetchAnalyticsData();
   }, []);
 
-  if (!stats && !isLoading) return null;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="fixed top-4 right-4 z-50">
@@ -64,102 +61,67 @@ const Dashboard = () => {
             </button>
           </div>
 
-          <div className="border-b border-gray-200">
-            <div className="flex">
-              <button
-                className={`flex-1 px-3 md:px-4 py-2 text-xs md:text-sm font-medium transition-colors ${
-                  activeTab === 'personal' 
-                    ? 'border-b-2 border-[rgb(42,167,69)] text-[rgb(42,167,69)]' 
-                    : 'text-gray-500 hover:text-gray-700'
-                }`}
-                onClick={() => setActiveTab('personal')}
-              >
-                Personal Stats
-              </button>
-              <button
-                className={`flex-1 px-3 md:px-4 py-2 text-xs md:text-sm font-medium transition-colors ${
-                  activeTab === 'global' 
-                    ? 'border-b-2 border-[rgb(42,167,69)] text-[rgb(42,167,69)]' 
-                    : 'text-gray-500 hover:text-gray-700'
-                }`}
-                onClick={() => setActiveTab('global')}
-              >
-                Global Stats
-              </button>
-            </div>
-          </div>
-
           <div className="p-3 md:p-4 max-h-[80vh] overflow-y-auto">
-            {isLoading ? (
-              <div className="flex items-center justify-center h-48 md:h-64">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[rgb(42,167,69)]"></div>
+            <div className="space-y-3 md:space-y-4">
+              <div className="grid grid-cols-2 gap-2 md:gap-4">
+                <StatCard
+                  title="Your Visits"
+                  value={stats.user.totalVisits}
+                  icon={<FiBarChart2 className="text-[rgb(42,167,69)]" />}
+                  color="text-[rgb(42,167,69)]"
+                />
+                <StatCard
+                  title="Your Resumes"
+                  value={stats.user.totalResumes}
+                  icon={<FiBarChart2 className="text-blue-500" />}
+                  color="text-blue-500"
+                />
               </div>
-            ) : (
-              <>
-                {activeTab === 'personal' ? (
-                  <div className="space-y-3 md:space-y-4">
-                    <div className="grid grid-cols-2 gap-2 md:gap-4">
-                      <StatCard
-                        title="Your Visits"
-                        value={stats.user.totalVisits}
-                        icon={<FiBarChart2 className="text-[rgb(42,167,69)]" />}
-                        color="text-[rgb(42,167,69)]"
-                      />
-                      <StatCard
-                        title="Your Resumes"
-                        value={stats.user.totalResumes}
-                        icon={<FiBarChart2 className="text-blue-500" />}
-                        color="text-blue-500"
-                      />
-                    </div>
-                    <StatCard
-                      title="Your Downloads"
-                      value={stats.user.totalDownloads}
-                      icon={<FiBarChart2 className="text-orange-500" />}
-                      color="text-orange-500"
-                    />
-                  </div>
-                ) : (
-                  <div className="space-y-3 md:space-y-4">
-                    <div className="grid grid-cols-2 gap-2 md:gap-4">
-                      <StatCard
-                        title="Total Visits"
-                        value={stats.global.globalVisits}
-                        icon={<FiBarChart2 className="text-[rgb(42,167,69)]" />}
-                        color="text-[rgb(42,167,69)]"
-                      />
-                      <StatCard
-                        title="Unique Users"
-                        value={stats.global.uniqueUsers}
-                        icon={<FiUsers className="text-purple-500" />}
-                        color="text-purple-500"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 md:gap-4">
-                      <StatCard
-                        title="Total Resumes"
-                        value={stats.global.globalResumes}
-                        icon={<FiBarChart2 className="text-blue-500" />}
-                        color="text-blue-500"
-                      />
-                      <StatCard
-                        title="Total Downloads"
-                        value={stats.global.globalDownloads}
-                        icon={<FiBarChart2 className="text-orange-500" />}
-                        color="text-orange-500"
-                      />
-                    </div>
-                  </div>
-                )}
+              <StatCard
+                title="Your Downloads"
+                value={stats.user.totalDownloads}
+                icon={<FiBarChart2 className="text-orange-500" />}
+                color="text-orange-500"
+              />
+            </div>
 
-                <div className="mt-4 md:mt-6">
-                  <h4 className="text-xs md:text-sm font-semibold mb-3 md:mb-4">7-Day Trends</h4>
-                  <div className="h-48 md:h-64 bg-white rounded-lg p-2 md:p-4">
-                    <TrendChart data={stats.trends} />
-                  </div>
-                </div>
-              </>
-            )}
+            <div className="space-y-3 md:space-y-4 mt-4">
+              <div className="grid grid-cols-2 gap-2 md:gap-4">
+                <StatCard
+                  title="Total Visits"
+                  value={stats.global.globalVisits}
+                  icon={<FiBarChart2 className="text-[rgb(42,167,69)]" />}
+                  color="text-[rgb(42,167,69)]"
+                />
+                <StatCard
+                  title="Unique Users"
+                  value={stats.global.uniqueUsers}
+                  icon={<FiUsers className="text-purple-500" />}
+                  color="text-purple-500"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2 md:gap-4">
+                <StatCard
+                  title="Total Resumes"
+                  value={stats.global.globalResumes}
+                  icon={<FiBarChart2 className="text-blue-500" />}
+                  color="text-blue-500"
+                />
+                <StatCard
+                  title="Total Downloads"
+                  value={stats.global.globalDownloads}
+                  icon={<FiBarChart2 className="text-orange-500" />}
+                  color="text-orange-500"
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 md:mt-6">
+              <h4 className="text-xs md:text-sm font-semibold mb-3 md:mb-4">7-Day Trends</h4>
+              <div className="h-48 md:h-64 bg-white rounded-lg p-2 md:p-4">
+                <TrendChart data={stats.trends} />
+              </div>
+            </div>
           </div>
         </div>
       )}
